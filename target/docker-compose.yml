@@ -1,0 +1,21 @@
+name: chaos-target
+
+x-svc: &svc
+  build: .
+  image: chaos-target-app
+  cap_add: [NET_ADMIN]
+
+services:
+  gateway:
+    <<: *svc
+    environment: { ROLE: gateway }
+    ports: ["127.0.0.1:18080:8000"]
+  auth:
+    <<: *svc
+    environment: { ROLE: auth }
+  catalog:
+    <<: *svc
+    environment: { ROLE: catalog }
+  cache:
+    <<: *svc
+    environment: { ROLE: cache }
